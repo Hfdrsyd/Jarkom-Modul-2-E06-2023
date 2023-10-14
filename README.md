@@ -110,7 +110,9 @@ iface eth0 inet static
 	gateway 192.209.3.1
 ```
 
-- Ketikkan iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.209.0.0/16 pada router Pandudewanata. Kemudian, tambahkan echo 'nameserver 192.168.122.1' > /etc/resolv.conf untuk setiap node. Terakhir, lakukan testing.
+- Ketikkan `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.209.0.0/16` pada router Pandudewanata. Kemudian, tambahkan `echo 'nameserver 192.168.122.1' > /etc/resolv.conf` untuk setiap node. Terakhir, lakukan testing.
+
+![image](Images/no1b.png)
 
 ## Nomor 2
 ### Soal
@@ -208,7 +210,6 @@ Buat juga reverse domain untuk domain utama. (Abimanyu saja yang direverse)
 Menambahkan kofigurasi sebagai berikut pada `/etc/bind/named.conf.local` di Yudhistira:
 
 ![image](Images/no5a.png)
-
 
 kemudian mengisi file  `/etc/bind/jarkom/3.209.192.in-addr.arpa` sebagai berikut
 
