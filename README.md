@@ -85,3 +85,69 @@ kemudian dilakukan ping pada abimanyu.E06.com dan www.abimanyu.E06.com untuk mel
 
 ![image](Images/no3c.png)
 
+
+## Nomor 4
+### Soal
+Kemudian, karena terdapat beberapa web yang harus di-deploy, buatlah subdomain parikesit.abimanyu.yyy.com yang diatur DNS-nya di Yudhistira dan mengarah ke Abimanyu.
+
+### Jawaban
+untuk membuat subdomain perlu dilakukan penambahan pada `/etc/bind/jarkom/abimanyu.E06.com` sebagai berikut:
+
+![image](Images/no4a.png)
+
+kemudian lakukan restart bind.
+
+```
+service bind9 restart
+```
+
+kemudian dilakukan ping pada parikesit.abimanyu.E06.com dan www.parikesit.abimanyu.E06.com untuk melakukan testing.
+
+![image](Images/no4b.png)
+
+## Nomor 5
+### Soal
+Buat juga reverse domain untuk domain utama. (Abimanyu saja yang direverse)
+
+### Jawaban
+Menambahkan kofigurasi sebagai berikut pada `/etc/bind/named.conf.local` di Yudhistira:
+
+![image](Images/no5a.png)
+
+
+kemudian mengisi file  `/etc/bind/jarkom/3.209.192.in-addr.arpa` sebagai berikut
+
+![image](Images/no5b.png)
+
+kemudian lakukan restart bind.
+
+```
+service bind9 restart
+```
+untuk testing dapat dilakukan dengan command:
+```
+host -t PTR 192.209.3.4
+```
+![image](Images/no5c.png)
+
+## Nomor 6
+### Soal
+Agar dapat tetap dihubungi ketika DNS Server Yudhistira bermasalah, buat juga Werkudara sebagai DNS Slave untuk domain utama.
+
+### Jawaban
+IP Werkudara dihubungkan dengan Yudhistira pada /etc/bind/named.conf.local di Yudhistira, sebagai berikut:
+
+![image](Images/no6a.png)
+
+Selanjutnya melakukan setting agar Werkudara menjadi slave pada /etc/bind/named.conf.local di Werkudara.
+
+![image](Images/no6b.png)
+
+kemudian untuk melakukan testing dapat dilakukan penghentian service dari bind di master/Yudhistira dengan command:
+```
+service bind9 stop
+```
+dan dilakukan ping. apabila masih bisa, maka slave telah tersambung.
+
+![image](Images/no6d.png)
+
