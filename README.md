@@ -139,10 +139,19 @@ IP Werkudara dihubungkan dengan Yudhistira pada /etc/bind/named.conf.local di Yu
 
 ![image](Images/no6a.png)
 
+kemudian lakukan restart bind.
+```
+service bind9 restart
+```
+
 Selanjutnya melakukan setting agar Werkudara menjadi slave pada /etc/bind/named.conf.local di Werkudara.
 
 ![image](Images/no6b.png)
 
+kemudian lakukan restart bind.
+```
+service bind9 restart
+```
 kemudian untuk melakukan testing dapat dilakukan penghentian service dari bind di master/Yudhistira dengan command:
 ```
 service bind9 stop
@@ -170,6 +179,11 @@ Kemudian ubah konfigurasi `/etc/bind/named.conf.local` menjadi seperti berikut:
 
 ![image](Images/no7c_coret.png)
 
+kemudian lakukan restart bind.
+```
+service bind9 restart
+```
+
 #### Werkudara
 pada `/etc/bind/named.conf.options` comment `dnssec-validation auto;` dan tambahkan `allow-query{any;};`.
 
@@ -189,11 +203,16 @@ kemudian ubah file `/etc/bind/Baratayuda/baratayuda.abimanyu.E06.com` menjadi se
 
 ![image](Images/no7f.png)
 
+kemudian lakukan restart bind.
+```
+service bind9 restart
+```
+
 Terakhir lakukan pengetesan pada client.
 
 ![image](Images/no7g.png)
 
-## Nomor 7
+## Nomor 8
 ### Soal
 Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
 
