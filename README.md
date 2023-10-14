@@ -17,6 +17,99 @@ Berikut merupakan topologi yang telah kelompok kami buat.
 
 ![image](Images/no1.png)
 
+- Pandudewanata (Server)
+```
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+	address 192.209.1.1
+	netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+	address 192.209.2.1
+	netmask 255.255.255.0
+
+auto eth3
+iface eth3 inet static
+	address 192.209.3.1
+	netmask 255.255.255.0
+```
+  
+- Nakula (Client)
+```
+auto eth0
+iface eth0 inet static
+	address 192.209.1.2
+	netmask 255.255.255.0
+	gateway 192.209.1.1
+```
+  
+- Sadewa (Client)
+```
+auto eth0
+iface eth0 inet static
+	address 192.209.1.3
+	netmask 255.255.255.0
+	gateway 192.209.1.1
+```
+
+- Yudistira (Master)
+```
+auto eth0
+iface eth0 inet static
+	address 192.209.2.2
+	netmask 255.255.255.0
+	gateway 192.209.2.1
+```
+
+- Werkudara (Slave)
+```
+auto eth0
+iface eth0 inet static
+	address 192.209.3.2
+	netmask 255.255.255.0
+	gateway 192.209.3.1
+```
+
+- Arjuna (WebServer)
+```
+auto eth0
+iface eth0 inet static
+	address 192.209.3.3
+	netmask 255.255.255.0
+	gateway 192.209.3.1
+```
+
+- Prabukusuma (Worker)
+```
+auto eth0
+iface eth0 inet static
+	address 192.209.3.5
+	netmask 255.255.255.0
+	gateway 192.209.3.1
+```
+
+- Abimanyu (WebServer-Worker)
+```
+auto eth0
+iface eth0 inet static
+	address 192.209.3.4
+	netmask 255.255.255.0
+	gateway 192.209.3.1
+```
+
+- Wisanggeni (Worker)
+```
+auto eth0
+iface eth0 inet static
+	address 192.209.3.6
+	netmask 255.255.255.0
+	gateway 192.209.3.1
+```
+
 ## Nomor 2
 ### Soal
 Buatlah website utama pada node arjuna dengan akses ke arjuna.yyy.com dengan alias www.arjuna.yyy.com dengan yyy merupakan kode kelompok.
