@@ -217,3 +217,15 @@ Terakhir lakukan pengetesan pada client.
 Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
 
 ### Jawaban
+Ubah `/etc/bind/Baratayuda/baratayuda.abimanyu.E06.com` menjadi sebagai berikut:
+
+![image](Images/no8afix.png)
+
+kemudian lakukan restart bind.
+```
+service bind9 restart
+```
+Terakhir lakukan pengetesan pada client.
+
+![image](Images/no8b.png)
+
