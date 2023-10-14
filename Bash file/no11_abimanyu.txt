@@ -1,0 +1,27 @@
+apt-get install apache2
+service apache2 start
+
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+cp -r /Jarkom-Modul-2-E06/Resource/abimanyu.yyy.com/abimanyu.yyy.com /var/www/abimanyu.E06.com
+
+gg='<VirtualHost *:80>
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.E06.com
+        ServerName abimanyu.E06.com
+        ServerAlias www.abimanyu.E06.com
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+
+</VirtualHost>
+'
+
+
+echo "$gg" > /etc/apache2/sites-available/000-default.conf
+
+apt-get install libapache2-mod-php7.0
+service apache2 restart

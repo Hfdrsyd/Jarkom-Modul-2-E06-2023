@@ -1,0 +1,16 @@
+hh='$TTL    604800
+@       IN      SOA     baratayuda.abimanyu.E06.com. root.baratayuda.abimanyu.E06.com. (
+        2023101101         ; Serial
+         604800         ; Refresh
+          86400         ; Retry
+        2419200         ; Expire
+         604800 )       ; Negative Cache TTL
+@               IN      NS      baratayuda.abimanyu.E06.com.
+@               IN      A       192.209.3.4
+rjp             IN      A       192.209.3.4
+www.rjp         IN      CNAME   rjp.baratayuda.abimanyu.E06.com.
+'
+
+
+echo "$hh" > /etc/bind/Baratayuda/baratayuda.abimanyu.E06.com
+service bind9 restart

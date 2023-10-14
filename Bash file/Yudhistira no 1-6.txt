@@ -1,0 +1,75 @@
+apt-get update
+apt-get install bind9 -y
+
+
+echo 'zone "arjuna.E06.com" {' | tee -a /etc/bind/named.conf.local
+echo '    type master;' | tee -a /etc/bind/named.conf.local
+echo '    file "/etc/bind/jarkom/arjuna.E06.com";' | tee -a /etc/bind/named.conf.local
+echo '};' | tee -a /etc/bind/named.conf.local
+
+mkdir /etc/bind/jarkom
+cp /etc/bind/db.local /etc/bind/jarkom/arjuna.E06.com
+
+echo ';\n; BIND data file for local loopback interface\n;' | tee /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '$TTL    604800' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '@       IN      SOA     arjuna.E06.com. root.arjuna.E06.com. (' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '        2023101101         ; Serial' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '         604800         ; Refresh' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '          86400         ; Retry' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '        2419200         ; Expire' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '         604800 )       ; Negative Cache TTL' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '@       IN      NS      arjuna.E06.com.' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo '@       IN      A       192.209.3.3' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+echo 'www     IN      CNAME   arjuna.E06.com.' | tee -a /etc/bind/jarkom/arjuna.E06.com > /dev/null
+
+# echo 'zone "abimanyu.E06.com" {' | tee -a /etc/bind/named.conf.local
+# echo '    type master;' | tee -a /etc/bind/named.conf.local
+# echo '    file "/etc/bind/jarkom/abimanyu.E06.com";' | tee -a /etc/bind/named.conf.local
+# echo '};' | tee -a /etc/bind/named.conf.local
+
+echo 'zone "abimanyu.E06.com" {' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '    type master;' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '    notify yes;' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '    also-notify { 192.209.3.2; };' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '    allow-transfer { 192.209.3.2; };' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '    file "/etc/bind/jarkom/abimanyu.E06.com";' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '};' | tee -a /etc/bind/named.conf.local > /dev.null
+
+mkdir /etc/bind/jarkom
+cp /etc/bind/db.local /etc/bind/jarkom/abimanyu.E06.com
+
+echo ';\n; BIND data file for local loopback interface\n;' | tee /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '$TTL    604800' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '@       IN      SOA     abimanyu.E06.com. root.abimanyu.E06.com. (' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '        2023101101         ; Serial' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '         604800         ; Refresh' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '          86400         ; Retry' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '        2419200         ; Expire' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '         604800 )       ; Negative Cache TTL' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '@       		IN      NS      abimanyu.E06.com.' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo '@       		IN      A       192.209.3.4' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo 'www     		IN      CNAME   abimanyu.E06.com.' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo 'parikesit 	IN      A   	192.209.3.4' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+echo 'www.parikesit     IN      CNAME   parikesit.abimanyu.E06.com.' | tee -a /etc/bind/jarkom/abimanyu.E06.com > /dev/null
+
+
+echo 'zone "3.209.192.in-addr.arpa" {' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '    type master;' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '    file "/etc/bind/jarkom/3.209.192.in-addr.arpa";' | tee -a /etc/bind/named.conf.local > /dev/null
+echo '};' | tee -a /etc/bind/named.conf.local > /dev/null
+
+cp /etc/bind/db.local /etc/bind/jarkom/3.209.192.in-addr.arpa
+
+
+echo '$TTL    604800' | tee /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+echo '@       IN      SOA   abimanyu.E06.com. root.abimanyu.E06.com. (' | tee -a /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+echo '                 2023101101         ; Serial' | tee -a /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+echo '                     604800         ; Refresh' | tee -a /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+echo '                      86400         ; Retry' | tee -a /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+echo '                    2419200         ; Expire' | tee -a /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+echo '                     604800 )       ; Negative Cache TTL' | tee -a /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+echo '3.209.192.in-addr.arpa. 	IN	NS	abimanyu.E06.com.' | tee -a /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+echo '4       			IN      PTR     abimanyu.E06.com.' | tee -a /etc/bind/jarkom/3.209.192.in-addr.arpa > /dev/null
+
+
+service bind9 restart

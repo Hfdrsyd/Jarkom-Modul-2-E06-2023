@@ -1,0 +1,21 @@
+apt-get update
+apt-get install bind9 nginx
+
+ff='upstream myweb  {
+        server 192.209.3.4:8002;
+        server 192.209.3.5:8001;
+        server 192.209.3.6:8003;
+ }
+
+ server {
+        listen 80;
+        server_name arjuna.E06.com;
+
+        location / {
+        proxy_pass http://myweb;
+        }
+ }'
+
+echo "$ff" > /etc/nginx/sites-available/lb-arjuna
+ln -s /etc/nginx/sites-available/lb-arjuna /etc/nginx/sites-enabled
+service nginx restart

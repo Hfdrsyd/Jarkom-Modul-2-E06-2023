@@ -1,0 +1,31 @@
+apt-get install apache2
+service apache2 start
+
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+
+cp -r /Jarkom-Modul-2-E06/Resource/parikesit.abimanyu.yyy.com/parikesit.abimanyu.yyy.com /var/www/parikesit.abimanyu.E06
+
+mkdir /var/www/parikesit.abimanyu.E06/secret
+
+echo " <?php echo "Hapi Hapi Hapi"; ?>" > /var/www/parikesit.abimanyu.E06/secret/index.php
+
+
+gg='<VirtualHost *:80>
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.E06
+        ServerName parikesit.abimanyu.E06.com
+        ServerAlias www.parikesit.abimanyu.E06.com
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+
+</VirtualHost>
+'
+
+echo "$gg" >> /etc/apache2/sites-available/000-default.conf
+apt-get install libapache2-mod-php7.0
+service apache2 restart

@@ -1,0 +1,12 @@
+apt-get update
+apt-get install bind9 -y
+
+dns_config='zone "abimanyu.E06.com" {
+    type slave;
+    masters { 192.209.2.2; };
+    file "/var/lib/bind/abimanyu.E06.com";
+};'
+
+echo "$dns_config" | tee -a /etc/bind/named.conf.local
+
+service bind9 restart

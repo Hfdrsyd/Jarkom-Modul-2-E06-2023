@@ -1,0 +1,41 @@
+apt-get update && apt install nginx php php-fpm -y git
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+mkdir /var/www/jarkom
+cp -r /Jarkom-Modul-2-E06/Resource/arjuna.yyy.com/arjuna.yyy.com /var/www/arjuna.E06.com
+
+gg='server {
+
+ 	listen 80;
+
+ 	root /var/www/arjuna.E06.com;
+
+ 	index index.php index.html index.htm;
+ 	server_name _;
+
+ 	location / {
+ 			try_files $uri $uri/ /index.php?$query_string;
+ 	}
+
+ 	# pass PHP scripts to FastCGI server
+ 	location ~ \.php$ {
+ 	include snippets/fastcgi-php.conf;
+ 	fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;#prabukusuma&wisanggeni 7.0
+ 	}
+
+ location ~ /\.ht {
+ 			deny all;
+ 	}
+
+ 	error_log /var/log/nginx/jarkom_error.log;
+ 	access_log /var/log/nginx/jarkom_access.log;
+ }'
+
+
+echo "$gg" > /etc/nginx/sites-available/jarkom
+
+rm -rf /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled ##prabukusuma&wisanggeni 7.0
+service php7.2-fpm start
+service nginx restart

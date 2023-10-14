@@ -1,0 +1,39 @@
+apt-get install apache2
+service apache2 start
+
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+
+cp -r /Jarkom-Modul-2-E06/Resource/rjp.baratayuda.abimanyu.yyy.com/rjp.baratayuda.abimanyu.yyy.com/ /var/www/rjp.baratayuda.abimanyu.E06
+
+gg='<VirtualHost *:14000 *:14400>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/rjp.baratayuda.abimanyu.E06
+        ServerName rjp.baratayuda.abimanyu.E06.com
+        ServerAlias www.rjp.baratayuda.abimanyu.E06.com
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+'
+
+echo "$gg" >> /etc/apache2/sites-available/000-default.conf
+
+aa='
+Listen 80
+Listen 14000
+Listen 14400
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
+'
+echo "$aa" > /etc/apache2/ports.conf
+
+
+service apache2 restart

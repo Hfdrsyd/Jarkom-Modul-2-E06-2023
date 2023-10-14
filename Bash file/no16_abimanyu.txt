@@ -1,0 +1,34 @@
+gg='<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.E06.com
+        ServerName abimanyu.E06.com
+        ServerAlias www.abimanyu.E06.com
+        <Directory /var/www/abimanyu.E06.com/index.php/home>
+                Options +Indexes
+        </Directory>
+
+        Alias "/home" "/var/www/abimanyu.E06.com/index.php/home"
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.E06
+        ServerName parikesit.abimanyu.E06.com
+        ServerAlias www.parikesit.abimanyu.E06.com
+        <Directory /var/www/parikesit.abimanyu.E06/secret>
+                Deny From All
+        </Directory>
+        Alias "/js" "/var/www/parikesit.abimanyu.E06/public/js"
+        ErrorDocument 403 /error/403.html
+        ErrorDocument 404 /error/404.html
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+'
+
+
+echo "$gg" > /etc/apache2/sites-available/000-default.conf
+service apache2 restart
+

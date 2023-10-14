@@ -1,0 +1,30 @@
+gg='server {
+
+ 	listen 8002;
+
+ 	root /var/www/arjuna.E06.com;
+
+ 	index index.php index.html index.htm;
+ 	server_name _;
+
+ 	location / {
+ 			try_files $uri $uri/ /index.php?$query_string;
+ 	}
+
+ 	# pass PHP scripts to FastCGI server
+ 	location ~ \.php$ {
+ 	include snippets/fastcgi-php.conf;
+ 	fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;#prabukusuma&wisanggeni 7.0
+ 	}
+
+ location ~ /\.ht {
+ 			deny all;
+ 	}
+
+ 	error_log /var/log/nginx/jarkom_error.log;
+ 	access_log /var/log/nginx/jarkom_access.log;
+ }'
+
+
+echo "$gg" > /etc/nginx/sites-available/jarkom
+service nginx restart
