@@ -372,3 +372,116 @@ diperoleh sebagai berikut
 Selain menggunakan Nginx, lakukan konfigurasi Apache Web Server pada worker Abimanyu dengan web server www.abimanyu.yyy.com. Pertama dibutuhkan web server dengan DocumentRoot pada /var/www/abimanyu.yyy
 
 ### Jawaban
+melakukan instalasi apache dan memindahkan resource ke `var/www`
+```
+apt-get install apache2
+service apache2 start
+
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+cp -r /Jarkom-Modul-2-E06/Resource/abimanyu.yyy.com/abimanyu.yyy.com /var/www/abimanyu.E06.com
+```
+kemudian pada `/etc/apache2/sites-available/000-default.conf` ditambahkan sebgai berikut
+
+![image](Images/no11a.png)
+
+kemudian dilakukan restart
+```
+apt-get install libapache2-mod-php7.0
+service apache2 restart
+```
+
+kemudian dilakukan testing pada client
+```
+lynx abimanyu.E06.com
+```
+![image](Images/no11b.png)
+
+
+
+## Nomor 12
+### Soal
+Setelah itu ubahlah agar url www.abimanyu.yyy.com/index.php/home menjadi www.abimanyu.yyy.com/home.
+
+### Jawaban
+tambahkan alias pada `/etc/apache2/sites-available/000-default.conf` sebagai berikut
+![image](Images/no12a.png)
+
+kemudian dilakukan restart
+```
+service apache2 restart
+```
+
+kemudian dilakukan testing pada client
+```
+lynx abimanyu.E06.com/home
+```
+diperoleh sebagai berikut
+![image](Images/no12b.png)
+
+## Nomor 13
+### Soal
+Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
+
+### Jawaban
+lakukan pemindahan resources ke `/var/www/parikesit.abimanyu.E06` dan pembuatan folder secret(untuk nomer 14).
+
+```
+apt-get install apache2
+service apache2 start
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+cp -r /Jarkom-Modul-2-E06/Resource/parikesit.abimanyu.yyy.com/parikesit.abimanyu.yyy.com /var/www/parikesit.abimanyu.E06
+
+mkdir /var/www/parikesit.abimanyu.E06/secret
+
+echo " <?php echo "Hapi Hapi Hapi"; ?>" > /var/www/parikesit.abimanyu.E06/secret/index.php
+```
+kemudian pada `/etc/apache2/sites-available/000-default.conf` tambahkan konfigurasi sebagai berikut
+![image](Images/no13a.png)
+
+kemudian restart apache
+```
+service apache2 restart
+```
+untuk testing dapat dilakukan `lynx parikesit.abimanyu.E06.com` diperoleh sebagai berikut
+
+![image](Images/no13b.png)
+
+## Nomor 14
+### Soal
+Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
+
+### Jawaban
+pada parikesit.abimanyu.E06.com dapat ditambahkan `Deny From All` sebagai berikut
+
+![image](Images/no14a.png)
+
+
+kemudian restart apache
+```
+service apache2 restart
+```
+
+dan dilakukan testing pada client dengan 
+```
+lynx parikesit.abimanyu.E06.com/secret
+```
+diperoleh
+
+![image](Images/no14b.png)
+
+jika dilakukan
+```
+lynx parikesit.abimanyu.E06.com
+```
+directory secret tidak ditemukan
+
+![image](Images/no14c.png)
+
+## Nomor 15
+### Soal
+Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden.
+
+### Jawaban
