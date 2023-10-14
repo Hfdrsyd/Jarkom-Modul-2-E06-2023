@@ -229,3 +229,146 @@ Terakhir lakukan pengetesan pada client.
 
 ![image](Images/no8b.png)
 
+
+## Nomor 9
+### Soal
+Arjuna merupakan suatu Load Balancer Nginx dengan tiga worker (yang juga menggunakan nginx sebagai webserver) yaitu Prabakusuma, Abimanyu, dan Wisanggeni. Lakukan deployment pada masing-masing worker.
+
+### Jawaban
+#### abimanyu
+lakukan pengunduhan resources, dalam hal ini saya unggah resources pada github ini, sehingga dapat dilakukan git clone dan dipindah ke folder `var/www`
+```
+apt-get update && apt install nginx php php-fpm -y git
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+cp -r /Jarkom-Modul-2-E06/Resource/arjuna.yyy.com/arjuna.yyy.com /var/www/arjuna.E06.com
+```
+
+kemudian ubah `/etc/nginx/sites-available/jarkom` sesuai dengan root yang telah diisi resource sebagai berikut
+
+![image](Images/no9b.png)
+
+kemudian restart.
+```
+rm -rf /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
+service php7.2-fpm start
+service nginx restart
+```
+
+kemudian untuk testing dapat dilakukan 
+```
+lynx 192.209.3.4
+```
+akan muncul sebagai berikut
+![image](Images/no9c.png)
+
+#### prabukusuma
+lakukan pengunduhan resources, dalam hal ini saya unggah resources pada github ini, sehingga dapat dilakukan git clone dan dipindah ke folder `var/www`
+```
+apt-get update && apt install nginx php php-fpm -y git
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+cp -r /Jarkom-Modul-2-E06/Resource/arjuna.yyy.com/arjuna.yyy.com /var/www/arjuna.E06.com
+```
+
+kemudian ubah `/etc/nginx/sites-available/jarkom` sesuai dengan root yang telah diisi resource sebagai berikut
+
+![image](Images/no9d.png)
+
+kemudian restart.
+```
+rm -rf /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled 
+service php7.0-fpm start ##prabukusuma&wisanggeni 7.0
+service nginx restart
+```
+kemudian untuk testing dapat dilakukan 
+```
+lynx 192.209.3.5
+```
+akan muncul sebagai berikut
+![image](Images/no9e.png)
+
+#### wisanggeni
+lakukan pengunduhan resources, dalam hal ini saya unggah resources pada github ini, sehingga dapat dilakukan git clone dan dipindah ke folder `var/www`
+```
+apt-get update && apt install nginx php php-fpm -y git
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+cp -r /Jarkom-Modul-2-E06/Resource/arjuna.yyy.com/arjuna.yyy.com /var/www/arjuna.E06.com
+```
+
+kemudian ubah `/etc/nginx/sites-available/jarkom` sesuai dengan root yang telah diisi resource sebagai berikut
+
+![image](Images/no9f.png)
+
+kemudian restart.
+```
+rm -rf /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled 
+service php7.0-fpm start ##prabukusuma&wisanggeni 7.0
+service nginx restart
+```
+
+kemudian untuk testing dapat dilakukan 
+```
+lynx 192.209.3.6
+```
+akan muncul sebagai berikut
+![image](Images/no9g.png)
+
+## Nomor 10
+### Soal
+Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan server_name pada soal nomor 1. Untuk melakukan pengecekan akses alamat web tersebut kemudian pastikan worker yang digunakan untuk menangani permintaan akan berganti ganti secara acak. Untuk webserver di masing-masing worker wajib berjalan di port 8001-8003. Contoh
+    - Prabakusuma:8001
+    - Abimanyu:8002
+    - Wisanggeni:8003
+
+### Jawaban
+pada arjuna dapat dilakukan setting sebagai berikut
+```
+apt-get update
+apt-get install bind9 nginx
+```
+kemudian pada `/etc/nginx/sites-available/lb-arjuna` dapat ditambahkan IP, port, dan server name sebagai berikut
+
+![image](Images/no10a.png)
+
+kemudian dilakukan link dan restart
+```
+ln -s /etc/nginx/sites-available/lb-arjuna /etc/nginx/sites-enabled
+service nginx restart
+```
+kemudian pada masing masing prabukusuma, abimanyu dan wisanggeni diubah port nya pada `/etc/nginx/sites-available/jarkom` sesuai port yang diminta soal:
+
+![image](Images/no10b.png)
+
+![image](Images/no10c.png)
+
+![image](Images/no10d.png)
+
+kemudian masing masing dari node dilakukan restart
+```
+service nginx restart
+```
+kemudian dilakukan testing sebanyak 3 kali dengan
+```
+lynx arjuna.E06.com
+```
+diperoleh sebagai berikut
+
+![image](Images/no10e.png)
+
+![image](Images/no10f.png)
+
+![image](Images/no10g.png)
+
+## Nomor 11
+### Soal
+Selain menggunakan Nginx, lakukan konfigurasi Apache Web Server pada worker Abimanyu dengan web server www.abimanyu.yyy.com. Pertama dibutuhkan web server dengan DocumentRoot pada /var/www/abimanyu.yyy
+
+### Jawaban
