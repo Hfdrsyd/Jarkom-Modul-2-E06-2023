@@ -454,7 +454,7 @@ untuk testing dapat dilakukan `lynx parikesit.abimanyu.E06.com` diperoleh sebaga
 Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
 
 ### Jawaban
-pada parikesit.abimanyu.E06.com dapat ditambahkan `Deny From All` sebagai berikut
+pada parikesit.abimanyu.E06.com di `/etc/apache2/sites-available/000-default.conf` dapat ditambahkan `Deny From All` sebagai berikut
 
 ![image](Images/no14a.png)
 
@@ -485,3 +485,147 @@ directory secret tidak ditemukan
 Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden.
 
 ### Jawaban
+pada parikesit.abimanyu.E06.com di `/etc/apache2/sites-available/000-default.conf` dapat ditambahkan jenis error dan path menuju file error kustomnya.
+
+![image](Images/no15a.png)
+
+kemudian restart apache
+```
+service apache2 restart
+```
+
+untuk melakukan testing untuk 2 kasus:
+1. error 403 (error forbidden)
+dengan menggunakan `lynx parikesit.abimanyu.E06.com/secret` diperoleh tampilan
+
+![image](Images/no15b.png)
+
+2. error 403 (error not found)
+dengan menggunakan `lynx parikesit.abimanyu.E06.com/kkkkk` diperoleh tampilan
+
+![image](Images/no15c.png)
+
+## Nomor 16
+### Soal
+Buatlah suatu konfigurasi virtual host agar file asset www.parikesit.abimanyu.yyy.com/public/js menjadi www.parikesit.abimanyu.yyy.com/js 
+
+### Jawaban
+menambahkan alias pada parikesit.abimanyu.E06.com di `/etc/apache2/sites-available/000-default.conf` sebagai berikut:
+
+![image](Images/no16a.png)
+
+kemudian restart apache
+```
+service apache2 restart
+```
+kemudian untuk testing dapat dilakukan dengan `lynx www.parikesit.abimanyu.E06.com/js` diperoleh
+
+![image](Images/no16b.png)
+
+## Nomor 17
+### Soal
+Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400.
+
+### Jawaban
+pindahkan file resource rjp.baratayuda.abimanyu.yyy.com ke var/www
+```
+apt-get install apache2
+service apache2 start
+
+git config --global http.sslVerify false
+git clone https://github.com/Hfdrsyd/Jarkom-Modul-2-E06
+
+cp -r /Jarkom-Modul-2-E06/Resource/rjp.baratayuda.abimanyu.yyy.com/rjp.baratayuda.abimanyu.yyy.com/ /var/www/rjp.baratayuda.abimanyu.E06
+```
+kemudian tambahkan konfigurasi rjp.baratayuda.abimanyu.E06.com kedalam file `/etc/apache2/sites-available/000-default.conf` namun dengan port 14000 dan 14400.
+
+![image](Images/no17a.png)
+
+kemudian tambahkan port 14000 dan 14400 pada konfigurasi port `/etc/apache2/ports.conf` sebagai berikut:
+
+![image](Images/no17b.png)
+
+kemudian restart apache
+```
+service apache2 restart
+```
+untuk testing dapat dilihat sebagai berikut:
+
+![Alt Text](Images/no17c.gif)
+
+## Nomor 18
+### Soal
+Untuk mengaksesnya buatlah autentikasi username berupa “Wayang” dan password “baratayudayyy” dengan yyy merupakan kode kelompok. Letakkan DocumentRoot pada /var/www/rjp.baratayuda.abimanyu.yyy.
+
+### Jawaban
+setting username dan password pada suatu folder
+```
+mkdir /etc/apache2/passwd
+htpasswd -c -b /etc/apache2/passwd/password Wayang baratayudaE06
+```
+kemudian pada rjp.baratayuda.abimanyu.E06.com di `/etc/apache2/sites-available/000-default.conf` ditambahkan sebagai berikut
+
+![image](Images/no18a.png)
+
+
+kemudian restart apache
+```
+service apache2 restart
+```
+
+sehingga jika dilakukan testing pada port 14000
+```
+lynx www.rjp.baratayuda.abimanyu.E06.com:14000
+```
+sehingga diperoleh
+![image](Images/no18b.png)
+
+![image](Images/no18c.png)
+
+![image](Images/no18d.png)
+
+## Nomor 19
+### Soal
+Buatlah agar setiap kali mengakses IP dari Abimanyu akan secara otomatis dialihkan ke www.abimanyu.yyy.com (alias)
+
+### Jawaban
+melakukan enable pada rewrite dengan
+```
+a2enmod rewrite
+```
+pada abimanyu.E06.com di `/etc/apache2/sites-available/000-default.conf` dapat ditambahkan RewriteRule dan RewriteCond sebagai berikut.
+
+![image](Images/no19a.png)
+
+kemudian restart apache
+```
+service apache2 restart
+```
+terakhir dilakukan testing dengan
+```
+lynx 192.209.3.4
+```
+![Alt Text](Images/no19b.gif)
+
+## Nomor 20
+### Soal
+Karena website www.parikesit.abimanyu.yyy.com semakin banyak pengunjung dan banyak gambar gambar random, maka ubahlah request gambar yang memiliki substring “abimanyu” akan diarahkan menuju abimanyu.png.
+
+### Jawaban
+melakukan enable pada rewrite dengan
+```
+a2enmod rewrite
+```
+pada parikesit.abimanyu.E06.com di `/etc/apache2/sites-available/000-default.conf` dapat ditambahkan redirect pada request yang memiliki kata abimanyu dan extension jpg atau png.
+![image](Images/no20a.png)
+
+kemudian restart apache
+```
+service apache2 restart
+```
+
+terakhir dilakukan testing dengan
+```
+lynx www.parikesit.abimanyu.E06.com/public/images/hafidabimanyu.jpg
+```
+![Alt Text](Images/no20b.gif)
