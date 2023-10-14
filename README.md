@@ -110,6 +110,8 @@ iface eth0 inet static
 	gateway 192.209.3.1
 ```
 
+- Ketikkan iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.209.0.0/16 pada router Pandudewanata. Kemudian, tambahkan echo 'nameserver 192.168.122.1' > /etc/resolv.conf untuk setiap node. Terakhir, lakukan testing.
+
 ## Nomor 2
 ### Soal
 Buatlah website utama pada node arjuna dengan akses ke arjuna.yyy.com dengan alias www.arjuna.yyy.com dengan yyy merupakan kode kelompok.
