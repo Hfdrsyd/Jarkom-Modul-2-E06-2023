@@ -151,3 +151,50 @@ dan dilakukan ping. apabila masih bisa, maka slave telah tersambung.
 
 ![image](Images/no6d.png)
 
+
+## Nomor 7
+### Soal
+Seperti yang kita tahu karena banyak sekali informasi yang harus diterima, buatlah subdomain khusus untuk perang yaitu baratayuda.abimanyu.yyy.com dengan alias www.baratayuda.abimanyu.yyy.com yang didelegasikan dari Yudhistira ke Werkudara dengan IP menuju ke Abimanyu dalam folder Baratayuda.
+
+### Jawaban
+#### Yudhistira
+Pada `/etc/bind/jarkom/abimanyu.E06.com` tambahkan konfigurasi tambahan sebagai berikut:
+
+![image](Images/no7a.png)
+
+Kemudian pada `/etc/bind/named.conf.options`comment `dnssec-validation auto;` dan tambahkan `allow-query{any;};`.
+
+![image](Images/no7b.png)
+
+Kemudian ubah konfigurasi `/etc/bind/named.conf.local` menjadi seperti berikut:
+
+![image](Images/no7c_coret.png)
+
+#### Werkudara
+pada `/etc/bind/named.conf.options` comment `dnssec-validation auto;` dan tambahkan `allow-query{any;};`.
+
+![image](Images/no7d.png)
+
+Kemudian ubah konfigurasi `/etc/bind/named.conf.local` menjadi seperti berikut:
+
+![image](Images/no7e.png)
+
+Kemudian buat direktori `Baratayuda` sesuai dengan nama file yang terhubung dengan konfigurasi diatas dan pindahkan file template pada db.local.
+
+```
+mkdir /etc/bind/Baratayuda
+cp /etc/bind/db.local /etc/bind/Baratayuda/baratayuda.abimanyu.E06.com
+```
+kemudian ubah file `/etc/bind/Baratayuda/baratayuda.abimanyu.E06.com` menjadi sebagai berikut:
+
+![image](Images/no7f.png)
+
+Terakhir lakukan pengetesan pada client.
+
+![image](Images/no7g.png)
+
+## Nomor 7
+### Soal
+Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
+
+### Jawaban
