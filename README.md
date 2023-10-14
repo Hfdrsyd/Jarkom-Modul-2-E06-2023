@@ -552,7 +552,7 @@ Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan
 ### Jawaban
 pada parikesit.abimanyu.E06.com di `/etc/apache2/sites-available/000-default.conf` dapat ditambahkan `Deny From All` sebagai berikut
 
-![image](Images/no14a.png)
+![image](Images/no14.png)
 
 
 kemudian restart apache
