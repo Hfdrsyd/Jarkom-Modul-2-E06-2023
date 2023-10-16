@@ -112,7 +112,7 @@ iface eth0 inet static
 
 - Ketikkan `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.209.0.0/16` pada router Pandudewanata. Kemudian, tambahkan `echo 'nameserver 192.168.122.1' > /etc/resolv.conf` untuk setiap node. Terakhir, lakukan testing.
 
-![image](Images/no1.png)
+![image](Images/no1a.png)
 
 - Selanjutnya mencoba melakukan testing antar node. Berikut contoh testing dengan IP Arjuna.
 
